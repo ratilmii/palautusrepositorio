@@ -9,7 +9,7 @@ Test Setup      Reset Application Create User And Go To Register Page
 Register With Valid Username And Password
     Set Username  ellak
     Set Password  ellak123
-    Set Password Confirmation ellak123
+    Set Password Confirmation  ellak123
     Submit Credentials
     Register Should Succeed
 
@@ -17,51 +17,64 @@ Register With Valid Username And Password
 Register With Too Short Username And Valid Password
     Set Username  ee
     Set Password  ellak123
-    Set Password Confirmation ellak123
+    Set Password Confirmation  ellak123
     Submit Credentials
     Register Should Fail With Message  Username must be at least 3 characters long
 
 Register With Valid Username And Too Short Password
     Set Username  ellak
     Set Password  ell
-    Set Password Confirmation ell
+    Set Password Confirmation  ell
     Submit Credentials
     Register Should Fail With Message  Password must be at least 8 characters long
 
 Register With Valid Username And Invalid Password
     Set Username  ellak
-    Set Password  ellak
-    Set Password Confirmation ellak
+    Set Password  ellakalle
+    Set Password Confirmation  ellakalle
     Submit Credentials
     Register Should Fail With Message  Password must contain at least one number
 
 Register With Nonmatching Password And Password Confirmation
     Set Username  ellak
     Set Password  ellak123
-    Set Password Confirmation ellak456
+    Set Password Confirmation  ellak456
     Submit Credentials
     Register Should Fail With Message  Passwords do not match
 
 Register With Username That Is Already In Use
     Set Username  kalle
     Set Password  ellak123
-    Set Password Confirmation ellak123
+    Set Password Confirmation  ellak123
     Submit Credentials
     Register Should Fail With Message  Username already exists
 
 *** Keywords ***
 Register Should Succeed
-    Main Page Should Be Open
+    Welcome Page Should Be Open
 
 Register Should Fail With Message
     [Arguments]  ${expected_message}
+    Register Page Should Be Open
     Page Should Contain  ${expected_message}
+
+Set Username
+    [Arguments]  ${username}
+    Input Text  username  ${username}
+
+Set Password
+    [Arguments]  ${password}
+    Input Password  password  ${password}    
+
+Set Password Confirmation
+    [Arguments]  ${password}
+    Input Password  password_confirmation  ${password}        
 
 Submit Credentials
     Click Button  Register    
 
-*** Keywords ***
-Reset Application Create User And Go To Login Page
+Reset Application Create User And Go To Register Page
     Reset Application
     Create User  kalle  kalle123
-    Go To Login Page
+    Go To Register Page
+
