@@ -8,19 +8,19 @@ Test Setup      Reset Application Create User And Go To Login Page
 Login With Correct Credentials
     Set Username  kalle
     Set Password  kalle123
-    Submit Credentials
+    Submit Login Credentials
     Login Should Succeed
 
 Login With Incorrect Password
     Set Username  kalle
     Set Password  kalle456
-    Submit Credentials
+    Submit Login Credentials
     Login Should Fail With Message  Invalid username or password
 
 Login With Nonexistent Username
     Set Username  ellak
     Set Password  kalle123
-    Submit Credentials
+    Submit Login Credentials
     Login Should Fail With Message  Invalid username or password
         
 
@@ -33,7 +33,7 @@ Login Should Fail With Message
     Login Page Should Be Open
     Page Should Contain  ${message}
 
-Submit Credentials
+Submit Login Credentials
     Click Button  Login
 
 Set Username
